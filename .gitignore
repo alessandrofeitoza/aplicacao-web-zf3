@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .vagrant/
 .idea/
 vendor/
@@ -5,3 +6,29 @@ config/development.config.php
 data/cache/*
 !data/cache/.gitkeep
 phpunit.xml
+=======
+# Composer files
+composer.phar
+vendor/
+
+# Local configs
+config/autoload/*.local.php
+
+# Binary gettext files
+*.mo
+
+# Data
+data/logs/
+data/cache/
+data/sessions/
+data/tmp/
+temp/
+
+#Doctrine 2
+data/DoctrineORMModule/Proxy/
+data/DoctrineORMModule/cache/
+
+# Legacy ZF1
+demos/
+extras/documentation
+>>>>>>> 1fe3ce909809e89ed5765a421068c571e22d31cf
