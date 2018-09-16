@@ -6,14 +6,12 @@
  * Time: 11:05
  */
 
-namespace Application\Repository;
+namespace Api\Repository;
 
 
-use Application\Entity\User;
+use Api\Entity\User;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Mapping;
 
 class UserRepository extends EntityRepository
 {

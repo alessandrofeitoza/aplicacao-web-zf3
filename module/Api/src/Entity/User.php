@@ -6,14 +6,14 @@
  * Time: 11:31
  */
 
-namespace Application\Entity;
+namespace Api\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class User
- * @package Application\Entity
+ * @package Api\Entity
  * @ORM\Entity()
  * @ORM\Table(name="user")
  * @ORM\HasLifecycleCallbacks()

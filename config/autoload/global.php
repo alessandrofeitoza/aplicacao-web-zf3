@@ -13,6 +13,7 @@
 
 
 use Doctrine\DBAL\Driver\PDOMySql\Driver as PDOMySqlDriver;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 return [
     'doctrine' => [
@@ -27,5 +28,20 @@ return [
                 ]
             ],
         ],
+
+        'driver' => [
+            'app_driver' => [
+                'class' => AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [
+                    __DIR__ . '/../../module/Api/src/Entity',
+                ]
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    'Api\Entity' => 'app_driver'
+                ]
+            ]
+        ]
     ],
 ];

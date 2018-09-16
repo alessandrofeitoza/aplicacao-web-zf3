@@ -6,19 +6,22 @@
  * Time: 11:09
  */
 
-namespace Application\Repository\Factory;
+namespace Api\Repository\Factory;
 
 
-use Application\Repository\UserRepository;
+use Api\Repository\UserRepository;
 use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 class UserRepositoryFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    /**
+     * @param ContainerInterface $container
+     * @param string $requestedName
+     * @param array|null $options
+     * @return UserRepository
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): UserRepository
     {
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
 
