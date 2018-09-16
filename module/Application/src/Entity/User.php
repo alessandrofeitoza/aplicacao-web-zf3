@@ -50,7 +50,7 @@ class User
 
     /**
      * @var int
-     * @ORM\Column(type="int", length=2)
+     * @ORM\Column(type="integer", length=2)
      */
     private $role;
 
