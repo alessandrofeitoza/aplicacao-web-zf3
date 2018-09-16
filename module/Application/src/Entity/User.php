@@ -26,7 +26,7 @@ class User
      * @var int $id
      * @ORM\Id()
      * @ORM\GeneratedValue()
-     * @ORM\Column()
+     * @ORM\Column(type="integer")
      */
     private $id;
 
@@ -38,7 +38,7 @@ class User
 
     /**
      * @var string $email
-     * @ORM\Column(length=100, type="string")
+     * @ORM\Column(length=100, type="string", unique=true)
      */
     private $email;
 
