@@ -7,12 +7,44 @@
 
 namespace Application;
 
-class Module
+use Application\Repository\Factory\UserRepositoryFactory;
+use Application\Repository\UserRepository;
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Zend\ModuleManager\Feature\ControllerProviderInterface;
+use Zend\ModuleManager\Feature\ServiceProviderInterface;
+
+class Module implements ConfigProviderInterface, ControllerProviderInterface, ServiceProviderInterface
 {
     const VERSION = '3.0.3-dev';
 
-    public function getConfig()
+    public function getConfig(): array
     {
         return include __DIR__ . '/../config/module.config.php';
     }
+
+    /**
+     * @return array|\Zend\ServiceManager\Config
+     */
+    public function getControllerConfig(): array
+    {
+        return [
+            'factories' => [
+
+            ],
+        ];
+    }
+
+    /**
+     * @return array|\Zend\ServiceManager\Config
+     */
+    public function getServiceConfig(): array
+    {
+        return [
+            'factories' => [
+                UserRepository::class => UserRepositoryFactory::class,
+            ],
+        ];
+    }
+
+
 }
