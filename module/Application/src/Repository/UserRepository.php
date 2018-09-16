@@ -9,7 +9,27 @@
 namespace Application\Repository;
 
 
-class UserRepository
-{
+use Application\Entity\User;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping;
 
+class UserRepository extends EntityRepository
+{
+    public function __construct(EntityManager $entityManager)
+    {
+        parent::__construct(
+            $entityManager,
+            $entityManager->getClassMetadata(User::class)
+        );
+    }
+
+    public function save(User $user): User
+    {
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
+
+        return $user;
+    }
 }
