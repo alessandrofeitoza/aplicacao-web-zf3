@@ -30,4 +30,10 @@ class UserRepository extends EntityRepository
 
         return $user;
     }
+
+    public function deleteOne(User $user): void
+    {
+        $this->getEntityManager()->remove($user);
+        $this->getEntityManager()->flush();
+    }
 }

@@ -25,7 +25,8 @@
         "zendframework/zend-servicemanager-di": "^1.0",
         "doctrine/doctrine-orm-module": "^2.1",
         "symfony/console": "^4.1",
-        "doctrine/dbal": "^2.8"
+        "doctrine/dbal": "^2.8",
+        "zendframework/zend-serializer": "^2.9"
     },
     "autoload": {
         "psr-4": {

@@ -74,6 +74,9 @@ class User
         $this->updated = new \DateTime();
     }
 
+    /**
+     * @ORM\PrePersist()
+     */
     public function prePersist()
     {
         $this->role = self::ROLE_DEFAULT;
@@ -207,5 +210,11 @@ class User
         return $this;
     }
 
+
+    public function extract()
+    {
+        $this->password = null;
+        return get_object_vars($this);
+    }
 
 }

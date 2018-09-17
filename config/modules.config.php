@@ -20,6 +20,7 @@ return [
     'Zend\Mvc\Plugin\FlashMessenger',
     'Zend\Mvc\Plugin\FilePrg',
     'Zend\Mvc\I18n',
+    'Zend\Serializer',
     'Zend\Router',
     'Zend\Validator',
     'DoctrineModule',
