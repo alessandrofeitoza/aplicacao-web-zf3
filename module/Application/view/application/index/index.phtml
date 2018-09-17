@@ -1,74 +1,187 @@
 <div class="jumbotron">
     <h1>Welcome to <span class="zf-green">Zend Framework</span></h1>
-
-    <p>
-        Congratulations! You have successfully installed the
-        <a href="https://github.com/zendframework/ZendSkeletonApplication" target="_blank">ZF Skeleton Application</a>.
-        You are currently running Zend Framework version <?= \Application\Module::VERSION ?>.
-        This skeleton can serve as a simple starting point for you to begin
-        building your application on ZF.
-    </p>
-
-    <p><a class="btn btn-success btn-lg" href="https://github.com/zendframework/zendframework" target="_blank">Fork Zend Framework on GitHub &raquo;</a></p>
 </div>
 
 <div class="row">
 
-    <div class="col-md-4">
+    <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Follow Development</h3>
+                <strong class="panel-title">Lista de Usuários</strong>
             </div>
             <div class="panel-body">
-                <p>
-                    Zend Framework is under active development. If you are
-                    interested in following the development of ZF, you can check
-                    <a href="http://framework.zend.com/blog/">ZF dev blog</a>,
-                    and <a href="https://github.com/issues?utf8=%E2%9C%93&amp;q=is:issue+org:zendframework">ZF issue tracker</a>
-                    (link requires a GitHub account). This is a great resource
-                    for staying up to date with the latest developments!
-                </p>
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Perfil</th>
+                            <th>Atualizado em</th>
+                            <th>Registrado em</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
 
-                <p><a class="btn btn-success pull-right" href="http://framework.zend.com/" target="_blank">ZF Development Portal &raquo;</a></p>
-            </div>
-        </div>
-    </div>
+                    <tbody id="table-user">
 
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Discover Modules</h3>
-            </div>
-            <div class="panel-body">
-                <p>
-                    The community is working on developing a community site to
-                    serve as a repository and gallery for ZF modules. The
-                    project is available <a href="https://github.com/zendframework/modules.zendframework.com">on GitHub</a>.
-                    The site is currently live and currently contains a list of
-                    some of the modules already available for ZF.
-                </p>
+                    </tbody>
+                </table>
 
-                <p><a class="btn btn-success pull-right" href="http://modules.zendframework.com/" target="_blank">Explore ZF Modules &raquo;</a></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Help &amp; Support</h3>
-            </div>
-            <div class="panel-body">
-                <p>
-                    If you need any help or support while developing with ZF,
-                    you may reach us via IRC: <a href="irc://irc.freenode.net/zftalk">#zftalk on Freenode</a>.
-                    We'd love to hear any questions or feedback you may have
-                    regarding this release. Alternatively, you may subscribe
-                    and post questions to the <a href="http://framework.zend.com/archives/">mailing lists</a>.
-                </p>
-
-                <p><a class="btn btn-success pull-right" href="http://webchat.freenode.net?channels=zftalk" target="_blank">Ping us on IRC &raquo;</a></p>
+                <div class="text-right">
+                    <button data-toggle="modal" data-target="#modalRegister" class="btn btn-info">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                        Novo Usuário
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal Register -->
+<div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Novo Usuário</h4>
+            </div>
+            <form action="#" method="post" id="formRegister">
+                <div class="modal-body">
+                    <label for="name">Nome: </label>
+                    <input type="text" required class="form-control" id="name" placeholder="Nome do Usuário"><br>
+
+                    <label for="email">Email: </label>
+                    <input type="email" required class="form-control" id="email" placeholder="Email do Usuário"><br>
+
+                    <label for="password">Senha: </label>
+                    <input type="password" required class="form-control" id="password" placeholder="Senha do Usuário"><br>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    <button class="btn btn-primary">Pronto, inserir.</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Delete -->
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Excluir Usuário?</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="alert alert-danger">
+                    Esta ação é irreversível.
+                </div>
+            </div>
+
+            <form action="#" method="post" id="formDelete">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    <button class="btn btn-danger">Sim, Excluir.</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready( function () {
+        loadUsers();
+
+        function loadUsers() {
+            $('#table-user').html('');
+            $.ajax({
+                url: '/api/user',
+                type: 'get',
+                dataType: 'json',
+                success: function (result) {
+                    $.each(result.data, function (index, value) {
+                        var profile = value.role == 2?'Admin':'Padrão';
+
+                        $('#table-user').append(
+                            '<tr>' +
+                            '<td>' + value.name + '</td>' +
+                            '<td>' + value.email + '</td>' +
+                            '<td>' + profile + '</td>' +
+                            '<td>' + value.updated.date + '</td>' +
+                            '<td>' + value.registered.date + '</td>' +
+                            '<td>' +
+                                '<button data-action="edit" data-id="' + value.id+ '" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i> Editar</button> '+
+                                '<button data-action="delete" data-id="' + value.id+ '" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> Excluir</button>'+
+                            '</td>' +
+                            '</tr>'
+                        );
+                    });
+                },
+                error: function (result) {
+                    alert(result.message + ' | ' + result.error);
+                }
+            });
+        }
+
+        $('#formRegister').submit( function (event) {
+            event.preventDefault();
+
+            var userName        = $('#name').val();
+            var userEmail       = $('#email').val();
+            var userPassword    = $('#password').val();
+
+            $.ajax({
+                url: '/api/user',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    name: userName,
+                    email: userEmail,
+                    password: userPassword
+                },
+                success: function (result) {
+                    loadUsers();
+                    $('#formRegister').trigger('reset');
+                    $('#modalRegister').modal('toggle');
+                    alert('Novo Usuário inserido com sucesso');
+                },
+                error: function (result) {
+                    alert(result.message + ' | ' + result.error);
+                }
+            });
+        });
+
+        $('#table-user').on('click', '[data-action="delete"]', function () {
+            var userId = $(this)[0].getAttribute('data-id');
+
+            $('#modalDelete').modal('toggle');
+
+            $('#formDelete').submit( function (event) {
+                event.preventDefault();
+
+                if (userId == null) {
+                    return;
+                }
+
+                $.ajax({
+                    url: '/api/user/' + userId,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    success: function (result) {
+                        loadUsers();
+                        $('#modalDelete').modal('toggle');
+                        userId = null;
+                        alert('Usuário excluído com sucesso');
+                    },
+                    error: function (result) {
+                        alert(result.message + ' | ' + result.error);
+                    }
+                })
+            });
+        });
+    });
+</script>
