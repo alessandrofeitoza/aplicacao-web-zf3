@@ -28,6 +28,10 @@ class UserService
 
     public function createNewUser(array $data): User
     {
+        if ($this->getUserRepository()->findOneBy(['email' => $data['email']])) {
+            throw new \Exception('Email já existe');
+        }
+
         $user = new User();
         $user
             ->setName($data['name'])
