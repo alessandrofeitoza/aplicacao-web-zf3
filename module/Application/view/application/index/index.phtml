@@ -39,58 +39,13 @@
 </div>
 
 <!-- Modal Register -->
-<div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Novo Usuário</h4>
-            </div>
-            <form action="#" method="post" id="formRegister">
-                <div class="modal-body">
-                    <label for="name">Nome: </label>
-                    <input type="text" required class="form-control" id="name" placeholder="Nome do Usuário"><br>
+<?=$this->partial('partials/modal-add-user');?>
 
-                    <label for="email">Email: </label>
-                    <input type="email" required class="form-control" id="email" placeholder="Email do Usuário"><br>
-
-                    <label for="password">Senha: </label>
-                    <input type="password" required class="form-control" id="password" placeholder="Senha do Usuário"><br>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                    <button class="btn btn-primary">Pronto, inserir.</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<!-- Modal Update -->
+<?=$this->partial('partials/modal-update-user')?>
 
 <!-- Modal Delete -->
-<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Excluir Usuário?</h4>
-            </div>
-
-            <div class="modal-body">
-                <div class="alert alert-danger">
-                    Esta ação é irreversível.
-                </div>
-            </div>
-
-            <form action="#" method="post" id="formDelete">
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                    <button class="btn btn-danger">Sim, Excluir.</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<?=$this->partial('partials/modal-remove-user');?>
 
 <script>
     $(document).ready( function () {
@@ -114,7 +69,7 @@
                             '<td>' + value.updated.date + '</td>' +
                             '<td>' + value.registered.date + '</td>' +
                             '<td>' +
-                                '<button data-action="edit" data-id="' + value.id+ '" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i> Editar</button> '+
+                                '<button data-action="update" data-id="' + value.id+ '" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i> Editar</button> '+
                                 '<button data-action="delete" data-id="' + value.id+ '" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> Excluir</button>'+
                             '</td>' +
                             '</tr>'
@@ -160,7 +115,36 @@
 
             $('#modalDelete').modal('toggle');
 
-            $('#formDelete').submit( function (event) {
+            $('#formDelete').on('submit', function (event) {
+                event.preventDefault();
+
+                if (userId == null) {
+                    return;
+                }
+
+                $.ajax({
+                    url: '/api/user/' + userId,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    success: function (result) {
+                        loadUsers();
+                        $('#modalDelete').modal('toggle');
+                        userId = null;
+                        alert('Usuário excluído com sucesso');
+                    },
+                    error: function (result) {
+                        alert(result.message + ' | ' + result.error);
+                    }
+                })
+            });
+        });
+
+        $('#table-user').on('click', '[data-action="update"]', function () {
+            var userId = $(this)[0].getAttribute('data-id');
+
+            $('#modalUpdate').modal('toggle');
+
+            $('#formUpdate').on('submit', function (event) {
                 event.preventDefault();
 
                 if (userId == null) {
