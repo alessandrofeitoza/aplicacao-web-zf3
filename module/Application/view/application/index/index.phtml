@@ -12,6 +12,22 @@
                 <strong class="panel-title">Lista de Usuários</strong>
             </div>
             <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-4 col-lg-offset-8">
+
+                        <form action="" id="formSearch">
+                            <div class="input-group">
+                                <input type="text" id="search" class="form-control" placeholder="Procurar por...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </form>
+
+                    </div>
+                </div>
+                <br><br>
+
                 <table class="table table-hover table-striped">
                     <thead>
                         <tr>
@@ -53,10 +69,10 @@
     $(document).ready( function () {
         loadUsers();
 
-        function loadUsers() {
+        function loadUsers(url = 'api/user') {
             $('#table-user').html('');
             $.ajax({
-                url: '/api/user',
+                url: url,
                 type: 'get',
                 dataType: 'json',
                 success: function (result) {
@@ -177,5 +193,18 @@
                 })
             });
         });
+
+        $('#formSearch').on('submit', function (event) {
+            event.preventDefault();
+
+            var expression = $('#search').val();
+            console.log(expression);
+
+            if (expression  == '') {
+                loadUsers(); return;
+            }
+
+            loadUsers('/api/user/like/' + expression);
+        })
     });
 </script>

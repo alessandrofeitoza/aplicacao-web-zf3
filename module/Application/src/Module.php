@@ -39,9 +39,9 @@ class Module implements ConfigProviderInterface, ControllerProviderInterface, Se
 
                 $session = new Container('user');
 
-                if (!$session->offsetGet('user') AND !in_array($routeName, $routes['default'])) {
-                    header('location: /login?msg=Permissão+Negada'); exit;
-                }
+//                if (!$session->offsetGet('user') AND !in_array($routeName, $routes['default'])) {
+//                    header('location: /login?msg=Permissão+Negada'); exit;
+//                }
 
                 $event->getViewModel()->setVariable('user', $session->offsetGet('user'));
 

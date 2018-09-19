@@ -22,6 +22,16 @@ return [
                     ],
                 ],
             ],
+            'user-rest-find-expression' => [
+                'type'      => Segment::class,
+                'options'   => [
+                    'route'     => '/api/user/like/:expression[/]',
+                    'defaults'  => [
+                        'controller' => UserRestController::class,
+                        'action'     => 'findByLike',
+                    ],
+                ],
+            ],
         ],
     ],
 

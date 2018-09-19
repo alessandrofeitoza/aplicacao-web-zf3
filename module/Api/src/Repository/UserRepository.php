@@ -36,4 +36,18 @@ class UserRepository extends EntityRepository
         $this->getEntityManager()->remove($user);
         $this->getEntityManager()->flush();
     }
+
+    public function findByLike(string $like)
+    {
+        $query = $this->getEntityManager()->getRepository(User::class);
+
+        $query = $query
+            ->createQueryBuilder('user')
+            ->where('user.name LIKE :like')
+            ->orWhere('user.email LIKE :like')
+            ->setParameter('like', "%$like%");
+
+        return $query->getQuery()->execute();
+
+    }
 }

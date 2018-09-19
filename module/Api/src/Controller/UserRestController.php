@@ -94,6 +94,30 @@ class UserRestController extends AbstractRestfulController
         ]);
     }
 
+    public function findByLikeAction()
+    {
+        $expression = $this->params('expression');
+
+        try {
+            $users = $this->userService->getUserRepository()->findByLike($expression);
+        } catch (\Exception $exception) {
+            $this->getResponse()->setStatusCode(500);
+            return new JsonModel([
+                'message'   => 'Erro ao buscar usuários',
+                'error'     => $exception->getMessage()
+            ]);
+        }
+
+        $users = array_map( function (User $user) {
+            return $user->extract();
+        }, $users);
+
+        return new JsonModel([
+            'message'   => 'Usuários Encontrados',
+            'data'      => $users,
+        ]);
+    }
+
     public function update($id, $data)
     {
         try {
