@@ -13,8 +13,7 @@ use Zend\Router\Http\Segment;
 return [
     'router' => [
         'routes' => [
-
-            'user-rest'     => [
+            'user-rest' => [
                 'type'      => Segment::class,
                 'options'   => [
                     'route'     => '/api/user[/:id][/]',

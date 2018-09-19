@@ -7,7 +7,7 @@
 
 namespace Application;
 
-use Application\Controller\UserRestController;
+use Application\Controller\AuthenticationController;
 use Doctrine\DBAL\Driver\PDOMySql\Driver;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\Router\Http\Literal;
@@ -32,9 +32,19 @@ return [
                 'options' => [
                     'route'    => '/login[/]',
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
+                        'controller' => AuthenticationController::class,
                         'action'     => 'login',
                     ],
+                ],
+            ],
+            'auth' => [
+                'type'      => Segment::class,
+                'options'   => [
+                    'route'     => '/autenticar[/]',
+                    'defaults'  => [
+                        'controller' => AuthenticationController::class,
+                        'action'     => 'auth'
+                    ]
                 ],
             ],
             'application' => [

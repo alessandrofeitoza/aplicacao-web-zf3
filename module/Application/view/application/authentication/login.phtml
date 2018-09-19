@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong><span class="glyphicon glyphicon-user"></span> Autenticação</strong>
+            </div>
+
+            <div class="panel-body">
+                <div class="alert alert-danger" id="messageError" style="display: none;"></div>
+
+                <form action="" id="formLogin">
+                    <label for="email">Email: </label>
+                    <input required type="email" id="email" class="form-control input-lg" placeholder="Email"><br>
+
+                    <label for="password">Senha: </label>
+                    <input required type="password" id="password" class="form-control input-lg" placeholder="Senha"><br>
+
+                    <button class="btn btn-block btn-primary btn-lg">
+                        <span class="glyphicon glyphicon-ok-sign"></span>
+                        Entrar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready( function () {
+        $('#formLogin').on('submit', function (event) {
+            event.preventDefault();
+            $('#messageError').hide();
+
+            $.ajax({
+                url: '/autenticar',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    email: $('#email').val(),
+                    password: $('#password').val()
+                },
+                success: function (result) {
+                    location.href('/?msg=Bem+vindo');
+                },
+                error: function (result) {
+                    response = JSON.parse(result.responseText);
+
+                    $('#messageError').html('<string>' + response.error + '</string>')
+                    $('#messageError').fadeIn();
+                }
+            })
+        });
+    });
+</script>

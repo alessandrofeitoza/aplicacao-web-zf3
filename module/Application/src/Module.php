@@ -7,21 +7,44 @@
 
 namespace Application;
 
-use Application\Controller\Factory\UserRestControllerFactory;
+use Application\Controller\AuthenticationController;
+use Application\Controller\Factory\AuthenticationControllerFactory;
 use Application\Controller\IndexController;
-use Application\Controller\UserRestController;
-use Application\Repository\Factory\UserRepositoryFactory;
-use Application\Repository\UserRepository;
-use Application\Service\Factory\UserServiceFactory;
-use Application\Service\UserService;
+use Application\Service\AuthenticationService;
+use Application\Service\Factory\AuthenticationServiceFactory;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ControllerProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
+use Zend\Mvc\MvcEvent;
 use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\Session\Container;
 
 class Module implements ConfigProviderInterface, ControllerProviderInterface, ServiceProviderInterface
 {
     const VERSION = '3.0.3-dev';
+
+    public function onBootstrap(MvcEvent $event)
+    {
+        $application = $event->getApplication();
+        $serviceManager = $application->getServiceManager();
+
+        $routes = include __DIR__ . '/../config/routes.config.php';
+
+        $application->getEventManager()->attach(MvcEvent::EVENT_DISPATCH,
+            function ($event) use ($serviceManager, $application, $routes) {
+
+                $routeName = $event->getRouteMatch()->getMatchedRouteName();
+
+                $session = new Container('user');
+
+                if (!$session->offsetGet('user') AND !in_array($routeName, $routes['default'])) {
+                    header('location: /login?msg=Permissão+Negada'); exit;
+                }
+
+            }, 200
+        );
+    }
+
 
     public function getConfig(): array
     {
@@ -35,7 +58,8 @@ class Module implements ConfigProviderInterface, ControllerProviderInterface, Se
     {
         return [
             'factories' => [
-                IndexController::class      => InvokableFactory::class,
+                IndexController::class          => InvokableFactory::class,
+                AuthenticationController::class => AuthenticationControllerFactory::class,
             ],
         ];
     }
@@ -47,8 +71,14 @@ class Module implements ConfigProviderInterface, ControllerProviderInterface, Se
     {
         return [
             'factories' => [
+                AuthenticationService::class    => AuthenticationServiceFactory::class,
             ],
         ];
+    }
+
+    public function on()
+    {
+
     }
 
 
