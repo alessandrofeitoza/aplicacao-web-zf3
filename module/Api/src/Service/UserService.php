@@ -51,7 +51,7 @@ class UserService
             throw new \Exception('Usuário não encontrado');
         }
 
-        if ($data['password']) {
+        if ($data['password'] && $data['password'] != '') {
             $data['password'] = password_hash($data['password'], PASSWORD_ARGON2I);
         }
 

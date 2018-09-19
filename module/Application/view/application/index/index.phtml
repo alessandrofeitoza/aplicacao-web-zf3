@@ -69,7 +69,7 @@
                             '<td>' + value.updated.date + '</td>' +
                             '<td>' + value.registered.date + '</td>' +
                             '<td>' +
-                                '<button data-action="update" data-id="' + value.id+ '" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i> Editar</button> '+
+                                '<button data-action="update" data-name="' + value.name + '" data-email="' + value.email + '" data-id="' + value.id+ '" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i> Editar</button> '+
                                 '<button data-action="delete" data-id="' + value.id+ '" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> Excluir</button>'+
                             '</td>' +
                             '</tr>'
@@ -142,6 +142,9 @@
         $('#table-user').on('click', '[data-action="update"]', function () {
             var userId = $(this)[0].getAttribute('data-id');
 
+            $('#nameToUpdate').val($(this)[0].getAttribute('data-name'));
+            $('#emailToUpdate').val($(this)[0].getAttribute('data-email'));
+
             $('#modalUpdate').modal('toggle');
 
             $('#formUpdate').on('submit', function (event) {
@@ -153,13 +156,18 @@
 
                 $.ajax({
                     url: '/api/user/' + userId,
-                    type: 'DELETE',
+                    type: 'PUT',
                     dataType: 'json',
+                    data: {
+                        name: $('#nameToUpdate').val(),
+                        email: $('#emailToUpdate').val(),
+                        password: $('#passwordToUpdate').val(),
+                    },
                     success: function (result) {
                         loadUsers();
-                        $('#modalDelete').modal('toggle');
+                        $('#modalUpdate').modal('toggle');
                         userId = null;
-                        alert('Usuário excluído com sucesso');
+                        alert('Usuário editado com sucesso');
                     },
                     error: function (result) {
                         alert(result.message + ' | ' + result.error);
