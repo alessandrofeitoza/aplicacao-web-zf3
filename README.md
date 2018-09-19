@@ -44,4 +44,13 @@ Agora precisará criar as tabelas, já que estamos utilizando o Doctrine basta f
 $ php vendor/bin/doctrine-module orm:schema-tool:create
 ```
 
+## Criando um usuário
+Para acessar a aplicação é necessário ter pelo menos 1 usuário, para isso entre no diretório da aplicação e rode o seguinte comando:
+```bash
+$ php public/index.php user add email@email.com senha123
+```
+Ao fazer isso um novo usuário com o email e a senha informada serão criados,
+
+
+## Rodando a Aplicação
 Agora basta acessar o http://localhost:8000 (com o servidor rodando) e utilizar a aplicação.
