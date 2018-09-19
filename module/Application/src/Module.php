@@ -7,6 +7,8 @@
 
 namespace Application;
 
+use Application\Command\ApplicationCommand;
+use Application\Command\Factory\ApplicationCommandFactory;
 use Application\Controller\AuthenticationController;
 use Application\Controller\Factory\AuthenticationControllerFactory;
 use Application\Controller\IndexController;
@@ -62,6 +64,7 @@ class Module implements ConfigProviderInterface, ControllerProviderInterface, Se
             'factories' => [
                 IndexController::class          => InvokableFactory::class,
                 AuthenticationController::class => AuthenticationControllerFactory::class,
+                ApplicationCommand::class       => ApplicationCommandFactory::class,
             ],
         ];
     }

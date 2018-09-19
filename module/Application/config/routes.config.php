@@ -18,5 +18,6 @@ return [
     'default' => [
         'login',
         'auth',
+        'create-console-user',
     ],
 ];

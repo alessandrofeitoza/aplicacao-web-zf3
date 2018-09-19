@@ -61,6 +61,8 @@ return [
         ],
     ],
 
+    'console' => include __DIR__ . '/command.config.php',
+
     'view_manager' => [
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
