@@ -37,6 +37,16 @@ return [
                     ],
                 ],
             ],
+            'logout' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/sair[/]',
+                    'defaults' => [
+                        'controller' => AuthenticationController::class,
+                        'action'     => 'logout',
+                    ],
+                ],
+            ],
             'auth' => [
                 'type'      => Segment::class,
                 'options'   => [
@@ -47,16 +57,7 @@ return [
                     ]
                 ],
             ],
-            'application' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route'    => '/application[/:action]',
-                    'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
-                    ],
-                ],
-            ],
+
         ],
     ],
 

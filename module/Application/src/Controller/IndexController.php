@@ -8,12 +8,17 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        return new ViewModel();
+        $user = (new Container('user'))->offsetGet('user');
+
+        return new ViewModel([
+            'username' => $user->getName(),
+        ]);
     }
 }

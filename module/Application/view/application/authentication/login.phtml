@@ -40,7 +40,7 @@
                     password: $('#password').val()
                 },
                 success: function (result) {
-                    location.href('/?msg=Bem+vindo');
+                    window.location.href = '/?msg=Bem+vindo';
                 },
                 error: function (result) {
                     response = JSON.parse(result.responseText);

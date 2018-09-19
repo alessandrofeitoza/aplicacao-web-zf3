@@ -31,7 +31,7 @@ class Module implements ConfigProviderInterface, ControllerProviderInterface, Se
         $routes = include __DIR__ . '/../config/routes.config.php';
 
         $application->getEventManager()->attach(MvcEvent::EVENT_DISPATCH,
-            function ($event) use ($serviceManager, $application, $routes) {
+            function (MvcEvent $event) use ($serviceManager, $application, $routes) {
 
                 $routeName = $event->getRouteMatch()->getMatchedRouteName();
 
@@ -40,6 +40,8 @@ class Module implements ConfigProviderInterface, ControllerProviderInterface, Se
                 if (!$session->offsetGet('user') AND !in_array($routeName, $routes['default'])) {
                     header('location: /login?msg=Permissão+Negada'); exit;
                 }
+
+                $event->getViewModel()->setVariable('user', $session->offsetGet('user'));
 
             }, 200
         );

@@ -9,10 +9,9 @@
 namespace Application\Controller;
 
 
-use Api\Service\UserService;
 use Application\Service\AuthenticationService;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Mvc\Controller\AbstractController;
+use Zend\Session\Container;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
@@ -56,5 +55,12 @@ class AuthenticationController extends AbstractActionController
             'message' => 'Usuário logado com sucesso',
             'data' => $user->extract(),
         ]);
+    }
+
+    public function logoutAction()
+    {
+        (new Container('user'))->getManager()->destroy();
+
+        $this->redirect()->toRoute('login');
     }
 }
